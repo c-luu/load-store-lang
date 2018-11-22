@@ -1,10 +1,6 @@
 #lang brag
-stat-list: stat+
-stat: lhs '=' rhs
-lhs: '*'? ID
-rhs: bin-op | offset | lhs
-bin-op: primary op primary
-offset: '*' '(' ID op ID ')'
+stat-list: ((indirection | ID) '=' (bin-op | indirection | ID))+
+bin-op: (INT | ID) op (INT | ID)
+indirection: '*' '(' ID op ID ')' | '*' ID
 op: ('+' | '*') 
-primary: INT | ID
 
