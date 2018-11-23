@@ -1,5 +1,5 @@
 #lang racket/base
-(require brag/support br-parser-tools/lex syntax/parse)
+(require brag/support br-parser-tools/lex syntax/parse "types.rkt")
 (provide tokenize)
 
 (define (tokenize ip)
@@ -29,3 +29,19 @@
          (void)]))
     (define (next-token) (lexer ip))
     next-token)
+
+(define (interp-stat-list stat-list-stx)
+  (syntax-parse stat-list-stx
+    [({~literal stat-list} stat-stxs ...)
+     (for ([stat-stx (syntax->list #'(stat-stxs ...))])
+       (interp-stat stat-stx))]))
+
+(define (interp-stat stat-stx)
+  (new MOVE
+   (syntax-parse stat-stx
+     [({~literal lhs} lhs-stxs ...)
+      (interp-lhs lhs-stxs)])
+   (syntax-parse stat-stx
+     [({~literal rhs} rhs-stxs ...)
+      (interp-rhs rhs-stxs)])))
+    
