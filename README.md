@@ -2,10 +2,9 @@
 A basic source language representing load and store operations in memory.
 
 ## Front-end
-Transforms load-store source to an AST (intermediate representation) in Polish notation form.
+TODO: transform load-store parse-tree to AST.
 
 ## Back-end
-Transforms AST to assembly using various selection methods, e.g.:
-
-1. Naive
+TODO: transform AST to some abstract machine using various selection methods, e.g.:
+1. Naive tiling
 2. Maximal munch
